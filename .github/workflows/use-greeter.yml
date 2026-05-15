@@ -1,0 +1,27 @@
+name: Use Greeter
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pin to immutable tag
+        id: g1
+        uses: garion247/js-action-demo@v1.0.0
+        with:
+          name: caller-app
+
+      - name: Pin to sliding major tag
+        id: g2
+        uses: garion247/js-action-demo@v1
+        with:
+          name: caller-app
+          shout: 'true'
+
+      - name: Show greetings
+        run: |
+          echo "v1.0.0 says: ${{ steps.g1.outputs.greeting }}"
+          echo "v1 says:     ${{ steps.g2.outputs.greeting }}"
